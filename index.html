@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>麦克设计作品展示</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 40px 10%; /* 侧边留白 */
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 50px;
+        }
+        /* 通用容器：设置最大宽度并清除浮动影响 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        /* 图片通用样式 */
+        .img-box {
+            margin-bottom: 40px;
+            width: 100%;
+            display: flex; /* 使用 Flex 布局方便控制对齐 */
+        }
+        img {
+            max-width: 60%; /* 设置图片最大宽度，避免太满 */
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* 1. 图片 01：左对齐 */
+        .left { justify-content: flex-start; }
+
+        /* 2. 图片 02：右对齐 */
+        .right { justify-content: flex-end; }
+
+        /* 3. 图片 03：居中对齐 */
+        .center { justify-content: center; }
+    </style>
+</head>
+<body>
+
+    <h1>&#40652;&#20811;&#35774;&#35745;</h1>
+
+    <div class="container">
+        <div class="img-box left">
+            <img src="01.png" alt="作品 01">
+        </div>
+
+        <div class="img-box right">
+            <img src="02.png" alt="作品 02">
+        </div>
+
+        <div class="img-box center">
+            <img src="03.png" alt="作品 03">
+        </div>
+    </div>
+
+</body>
+</html>
