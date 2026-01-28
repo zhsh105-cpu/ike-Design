@@ -3,116 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>图片展示与灰底红字导航</title>
+    <title>图片导航展示</title>
     <style>
-        /* 全局样式重置，消除默认边距和内外边距影响 */
+        /* 全局样式重置，消除默认边距和滚动条影响 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* 页面整体布局，让所有内容竖列居中 */
-        body {
-            display: flex;
-            flex-direction: column; /* 竖列排列整体内容 */
-            align-items: center; /* 水平居中 */
-            padding: 20px 0;
-            background-color: #f5f5f5;
+        /* 开启平滑滚动，让导航跳转更流畅 */
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* 第一张图片的容器 - 相对定位，承载导航和01图 */
-        .first-image-wrapper {
-            position: relative; /* 作为导航栏绝对定位的参考 */
-            margin-bottom: 20px; /* 与后续图片保持间距 */
-        }
-
-        /* 导航栏样式 - 01图顶部、灰底、红字+斜杠间隔 */
+        /* 导航栏样式：固定在顶部，居中显示，背景白色防止遮挡 */
         .nav-bar {
-            position: absolute; /* 绝对定位，贴在01图顶部 */
-            top: 0; /* 对齐图片顶部 */
-            left: 50%; /* 水平居中第一步 */
-            transform: translateX(-50%); /* 水平居中第二步，精准对齐 */
-            display: flex;
-            align-items: center; /* 导航项垂直居中 */
-            width: 100%; /* 与图片同宽，贴合顶部 */
-            padding: 15px 0; /* 上下内边距，保证导航栏高度适中 */
-            background-color: #cccccc; /* 灰色背景（浅灰，可自定义深浅） */
-            opacity: 0.9; /* 轻微透明，避免灰底过于生硬遮挡图片顶部 */
-            z-index: 10; /* 确保导航栏在图片上方 */
-            justify-content: center; /* 导航项整体水平居中 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px 0;
+            text-align: center;
+            z-index: 999; /* 确保导航栏在最上层，不被图片遮挡 */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* 可选阴影，提升视觉效果 */
         }
 
-        /* 导航项样式 - 红色文字核心设置 */
-        .nav-bar a {
-            text-decoration: none; /* 去除下划线 */
-            color: #ff0000; /* 纯红色文字，满足需求 */
+        /* 导航链接样式：红字、无下划线、字体稍大 */
+        .nav-link {
+            color: #ff0000;
+            text-decoration: none;
             font-size: 18px;
-            font-family: "Microsoft YaHei", sans-serif; /* 清晰易读字体 */
-            transition: color 0.3s ease; /* hover 过渡效果 */
-            padding: 0 15px; /* 左右内边距，让斜杠与文字间距更合理 */
+            margin: 0 10px;
+            cursor: pointer; /* 鼠标悬浮显示手型 */
         }
 
-        /* 导航项 hover 效果 - 加深红色，提升交互体验 */
-        .nav-bar a:hover {
-            color: #cc0000; /* 深一点的红色，更醒目 */
+        /* 「我们的服务」选项默认选中样式（突出显示） */
+        .nav-link.active {
+            font-weight: bold;
+            text-decoration: underline;
+            text-underline-offset: 4px;
         }
 
-        /* 斜杠分隔符样式 - 红色，与导航文字配色统一 */
-        .nav-bar .separator {
+        /* 导航分隔符（斜杠）样式：红字，与链接对齐 */
+        .nav-separator {
             color: #ff0000;
             font-size: 18px;
-            margin: 0; /* 取消额外间距，与导航项padding配合 */
         }
 
-        /* 后续图片容器样式 - 竖列排列，每张图间距统一 */
-        .other-images-container {
+        /* 图片容器：竖列排列，整体居中，顶部预留导航栏高度 */
+        .image-container {
             display: flex;
-            flex-direction: column; /* 竖列排列图片 */
-            gap: 20px; /* 图片之间的上下间距 */
-            align-items: center; /* 图片水平居中 */
+            flex-direction: column; /* 竖列排列 */
+            align-items: center; /* 水平居中 */
+            gap: 20px; /* 图片之间的间距 */
+            padding: 100px 20px 50px; /* 顶部预留导航栏空间，左右内边距，底部留白 */
         }
 
-        /* 所有图片统一样式 - 统一尺寸，避免变形 */
-        img {
-            width: 800px; /* 合理宽度，既醒目又不超出屏幕（可修改） */
-            height: auto; /* 保持图片原始比例，竖列图片自然展示 */
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        /* 单个图片包裹层：确保每张图片独立居中，可设置固定宽度（可选） */
+        .image-item {
+            width: 100%;
+            max-width: 600px; /* 限制图片最大宽度，避免过大变形 */
+            text-align: center;
+        }
+
+        /* 图片样式：自适应宽度，保持比例，不超出容器 */
+        .image-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px; /* 可选圆角，提升视觉效果 */
         }
     </style>
 </head>
 <body>
-    <!-- 第一张图片容器（承载01图和顶部导航栏） -->
-    <div class="first-image-wrapper">
-        <!-- 01图顶部导航栏 - 灰底、红字+斜杠间隔 -->
-        <div class="nav-bar">
-            <a href="#">主页</a>
-            <span class="separator">/</span>
-            <a href="#">服务</a>
-            <span class="separator">/</span>
-            <a href="#">项目</a>
-            <span class="separator">/</span>
-            <a href="#image04">价格</a>
-            <span class="separator">/</span>
-            <a href="#">联系方式</a>
+    <!-- 导航栏：更新文字内容，保持对应滚动锚点 -->
+    <div class="nav-bar">
+        <a href="#img01" class="nav-link">主页</a>
+        <span class="nav-separator">/</span>
+        <a href="#img02" class="nav-link active">我们的服务</a>
+        <span class="nav-separator">/</span>
+        <a href="#img03" class="nav-link">我们的项目</a>
+        <span class="nav-separator">/</span>
+        <a href="#img04" class="nav-link">我们的价格</a>
+        <span class="nav-separator">/</span>
+        <a href="#img05" class="nav-link">联系方式</a>
+    </div>
+
+    <!-- 图片容器（竖列居中，01做底为首图） -->
+    <div class="image-container">
+        <div class="image-item" id="img01">
+            <img src="01.png" alt="图片01">
         </div>
-        <!-- 01图 -->
-        <img src="01.png" alt="图片01">
+        <div class="image-item" id="img02">
+            <img src="02.png" alt="图片02">
+        </div>
+        <div class="image-item" id="img03">
+            <img src="03.png" alt="图片03">
+        </div>
+        <div class="image-item" id="img04">
+            <img src="04.png" alt="图片04">
+        </div>
+        <div class="image-item" id="img05">
+            <img src="05.png" alt="图片05">
+        </div>
     </div>
-
-    <!-- 其他图片容器（02-05图，竖列居中） -->
-    <div class="other-images-container">
-        <img src="02.png" alt="图片02">
-        <img src="03.png" alt="图片03">
-        <img id="image04" src="04.png" alt="图片04"> <!-- 给04图添加id，用于锚点定位滚动 -->
-        <img src="05.png" alt="图片05">
-    </div>
-
-    <!-- 平滑滚动效果，让跳转更流畅（避免生硬瞬间跳转） -->
-    <script>
-        // 开启全局平滑滚动
-        document.documentElement.style.scrollBehavior = 'smooth';
-    </script>
 </body>
 </html>
