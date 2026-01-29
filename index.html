@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>恒瑞德设计展示 | 36px 导航版</title>
+    <style>
+        /* 平滑滚动 */
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft YaHei", sans-serif;
+            /* 金色渐变底色 */
+            background: linear-gradient(180deg, #FFD700 0%, #B8860B 100%);
+            background-attachment: fixed;
+        }
+
+        /* 1. 导航栏：灰色底，高度自适应巨大字体 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #4A4A4A; /* 灰色背景 */
+            padding: 20px 0;
+            text-align: center;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        /* 导航容器布局 */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+        }
+
+        /* 2. 导航链接：中英对照，白字，36px */
+        .nav-item {
+            text-decoration: none;
+            color: #ffffff; /* 白字 */
+            display: flex;
+            flex-direction: column; /* 中英文上下排列 */
+            align-items: center;
+            transition: 0.3s;
+        }
+
+        .nav-item .zh {
+            font-size: 36px; /* 指定字号 36 */
+            font-weight: 900;
+        }
+
+        .nav-item .en {
+            font-size: 16px; /* 英文相应缩小比例以保持美观 */
+            text-transform: uppercase;
+            margin-top: 2px;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        .nav-item:hover {
+            color: #FFD700; /* 悬停变为金色 */
+        }
+
+        /* 白色斜杠间隔 */
+        .separator {
+            color: #ffffff;
+            font-size: 36px;
+            font-weight: lighter;
+            margin: 0 10px;
+        }
+
+        /* 3. 图片容器：竖列居中，无间隙 */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 160px; /* 为巨大的导航栏留出足够空间 */
+        }
+
+        .img-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            line-height: 0; /* 彻底消除图片间隙 */
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 移动端适配：防止字号过大超出屏幕 */
+        @media (max-width: 1024px) {
+            .nav-container { gap: 10px; }
+            .nav-item .zh { font-size: 20px; }
+            .nav-item .en { font-size: 10px; }
+            .separator { font-size: 20px; }
+            .container { margin-top: 100px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-item">
+                <span class="zh">主页</span>
+                <span class="en">Home</span>
+            </a>
+            <span class="separator">/</span>
+            
+            <a href="#service" class="nav-item">
+                <span class="zh">我们的服务</span>
+                <span class="en">Services</span>
+            </a>
+            <span class="separator">/</span>
+            
+            <a href="#project" class="nav-item">
+                <span class="zh">我们的项目</span>
+                <span class="en">Projects</span>
+            </a>
+            <span class="separator">/</span>
+            
+            <a href="#price" class="nav-item">
+                <span class="zh">我们的价格</span>
+                <span class="en">Pricing</span>
+            </a>
+            <span class="separator">/</span>
+            
+            <a href="#contact" class="nav-item">
+                <span class="zh">联系方式</span>
+                <span class="en">Contact</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="img-wrapper"><img src="01.png" alt="01"></div>
+
+        <div id="service" class="img-wrapper"><img src="02.png" alt="02"></div>
+
+        <div id="project" class="img-wrapper"><img src="03.png" alt="03"></div>
+
+        <div id="price" class="img-wrapper"><img src="04.png" alt="04"></div>
+
+        <div id="contact" class="img-wrapper"><img src="05.png" alt="05"></div>
+    </div>
+
+</body>
+</html>
